@@ -1,30 +1,26 @@
 import { Injectable, WritableSignal, inject } from '@angular/core';
-import { AppStateKeys, StateKeys, StateManagementService, User } from './state-management.service';
+import { SignalStoreService, StateKeys, User } from './signal-store.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-  user: WritableSignal<User>;
+  user: WritableSignal<User> | null;
   private readonly apiUrl = 'https://jsonplaceholder.typicode.com/todos';
-  private stateManagementService = inject(StateManagementService);
+  private signalStoreService = inject(SignalStoreService);
   private httpClient = inject(HttpClient);
-  
 
   constructor() {
-    this.user = this.stateManagementService.userState.getState(StateKeys.USER);
-   }
+    this.user = this.signalStoreService.userState.getState(StateKeys.USER);
+  }
 
+  updateUserState(user: User): void {
+    this.signalStoreService.userState.updateState(StateKeys.USER, user);
+  }
 
-   updateUserState(user: User): void{
-    this.stateManagementService.userState.updateState(StateKeys.USER, user);
-   }
-
-
-   getUserService(id:string): Observable<User>{
+  getUserService(id: string): Observable<User> {
     return this.httpClient.get<User>(`${this.apiUrl}/${id}`);
-   }
-
+  }
 }

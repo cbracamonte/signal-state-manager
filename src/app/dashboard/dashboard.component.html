@@ -1,7 +1,4 @@
-
 <h1>Obtenemos el Usuario</h1>
-<h2>{{user() | json}}</h2>
-<button (click)="getUsersService()">
-    Actualizar Usuario
-</button>
+<h1 *ngIf="user">{{ user() | json }}</h1>
+<button (click)="getUsersService()">Actualizar Usuario</button>
 <a [routerLink]="['/login']">Regresar</a>
