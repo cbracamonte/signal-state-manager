@@ -16,7 +16,7 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  user: WritableSignal<User> | null;
+  user: WritableSignal<User>;
   private signalStoreService = inject(SignalStoreService);
   private usersService = inject(UsersService);
 

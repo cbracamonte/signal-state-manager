@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  user: WritableSignal<User> | null;
+  user: WritableSignal<User>;
   private usersService = inject(UsersService);
 
   constructor() {

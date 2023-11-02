@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SignalStoreManager } from '../utils/signal-store-manager.util';
-import { LocalStorageService } from '../utils/storage-manager.util';
+import { LocalStorageManager } from '../utils/local-storage-manager.util';
 
 export interface User {
   userId: number;
@@ -31,13 +31,12 @@ export const emptyState: AppStateKeys = {
   providedIn: 'root',
 })
 export class SignalStoreService {
-  localStorageService = new LocalStorageService();
+  localStorageService = new LocalStorageManager();
   // Usando LocalStorage
   userState = new SignalStoreManager<User>(
     emptyState,
     this.localStorageService
   );
-
   // No usando LocalStorage
   // userState = new SignalStateManager<User>(emptyState);
   constructor() {}

@@ -3,11 +3,12 @@ import { SignalStoreService, StateKeys, User } from './signal-store.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  user: WritableSignal<User> | null;
+  user: WritableSignal<User>;
   private readonly apiUrl = 'https://jsonplaceholder.typicode.com/todos';
   private signalStoreService = inject(SignalStoreService);
   private httpClient = inject(HttpClient);
@@ -21,6 +22,6 @@ export class UsersService {
   }
 
   getUserService(id: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.apiUrl}/${id}`);
+    return this.httpClient.get<User>(`${this.apiUrl}/${id}`)
   }
 }
