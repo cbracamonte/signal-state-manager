@@ -1,8 +1,11 @@
 import { Component, OnInit, WritableSignal, inject } from '@angular/core';
 import { UsersService } from '../services/users.service';
-import { User } from '../services/signal-store.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { HaloStateManager, HaloStateManagerService } from 'halo-state-manager';
+import { sourceOfTruthInitiate } from '../states/states';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +15,11 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  user: WritableSignal<User>;
+  // user: Observable<User>;
   private usersService = inject(UsersService);
+  user = this.usersService.getUserService('1');
 
-  constructor() {
-    this.user = this.usersService.user;
+  constructor() {  
   }
 
   ngOnInit(): void {
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
   getUsers(): void {
     this.usersService.getUserService('1').subscribe((user) => {
       this.usersService.updateUserState(user);
-      this.user = this.usersService.user;
+      // this.user = this.usersService.user;
     });
   }
 }
