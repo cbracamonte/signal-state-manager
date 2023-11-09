@@ -1,0 +1,21 @@
+.header {
+  padding: 1em;
+  background: linear-gradient(
+      115deg,
+      rgba(0, 157, 224, 0.3) -22.42%,
+      rgba(130, 70, 175, 0.3) 71.05%
+    ),
+    #001f52;
+}
+.dataset-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.actions-buttons {
+  display: flex;
+  gap: 8px;
+}
+p,
+h1 {
+  color: #fff;
+}

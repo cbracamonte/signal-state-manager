@@ -1,0 +1,6 @@
+
+<div class="tab" [class.active]="tab.isActive" (click)="setActiveTab(tab.id)">
+  <p>{{ tab.status }}</p>
+  <h1>{{ tab.id }}. {{ tab.title }}</h1>
+  <p>{{ tab.description }}</p>
+</div>

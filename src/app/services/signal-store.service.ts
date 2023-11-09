@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { SignalStoreManager } from '../utils/signal-store-manager.util';
 import { LocalStorageManager } from '../utils/local-storage-manager.util';
-import { ObservableStoreManager } from '../utils/observable-store-manager.util';
-import { User } from '../models/user.model';
+
+export interface User {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
 export enum StateKeys {
   'USER' = 'USER',
-  'PERMISSION' = 'PERMISSION',
 }
 
 export interface AppStateKeys {
   [key: string]: any;
   [StateKeys.USER]: User;
-  [StateKeys.PERMISSION]: any;
 }
 
 export const emptyState: AppStateKeys = {
@@ -22,30 +25,18 @@ export const emptyState: AppStateKeys = {
     title: '',
     completed: false,
   },
-  [StateKeys.PERMISSION]: {
-    permission: false,
-  },
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalStoreService {
-  userStorage = new LocalStorageManager();
-  permissionStorage = new LocalStorageManager(window.sessionStorage);
+  localStorageService = new LocalStorageManager();
   // Usando LocalStorage
-  // userState = new SignalStoreManager<User>(
-  //   emptyState,
-  //   this.userStorage
-  // );
-
-  userState = new ObservableStoreManager<User>(emptyState, this.userStorage);
-
-  permissionState = new SignalStoreManager<any>(
+  userState = new SignalStoreManager<User>(
     emptyState,
-    this.permissionStorage
+    this.localStorageService
   );
-
   // No usando LocalStorage
   // userState = new SignalStateManager<User>(emptyState);
   constructor() {}

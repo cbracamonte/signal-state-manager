@@ -1,0 +1,25 @@
+<app-dataset-header></app-dataset-header>
+<section class="dataset-wizard-container">
+  <div class="tabs">
+    <app-dataset-tab
+      *ngFor="let tab of tabs$ | async"
+      [tab]="tab"
+      (selectTab)="selectTab(tab)"
+    >
+    </app-dataset-tab>
+  </div>
+  <div [ngSwitch]="step" class="dataset-wizard-content">
+    <app-data-settings
+      *ngSwitchCase="dataSetStep.DATA_SETTINGS"
+    ></app-data-settings>
+    <app-mapping-settings
+      *ngSwitchCase="dataSetStep.MAPPING_SETTINGS"
+    ></app-mapping-settings>
+    <app-data-validation
+      *ngSwitchCase="dataSetStep.DATA_VALIDATION"
+    ></app-data-validation>
+    <app-finalize-save
+      *ngSwitchCase="dataSetStep.FINALIZE_SAVE"
+    ></app-finalize-save>
+  </div>
+</section>

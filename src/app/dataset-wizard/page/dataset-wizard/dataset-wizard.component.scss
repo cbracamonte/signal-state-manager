@@ -1,0 +1,11 @@
+.tabs {
+  display: flex;
+  width: 100%;
+}
+app-dataset-tab {
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+.dataset-wizard-content {
+  padding: .5em;
+}

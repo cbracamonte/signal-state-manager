@@ -15,11 +15,11 @@ import { sourceOfTruthInitiate } from '../states/states';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  // user: Observable<User>;
+  user: WritableSignal<User>;
   private usersService = inject(UsersService);
-  user = this.usersService.getUserService('1');
 
   constructor() {  
+    this.user = this.usersService.user;
   }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   getUsers(): void {
     this.usersService.getUserService('1').subscribe((user) => {
       this.usersService.updateUserState(user);
-      // this.user = this.usersService.user;
+      this.user = this.usersService.user;
     });
   }
 }

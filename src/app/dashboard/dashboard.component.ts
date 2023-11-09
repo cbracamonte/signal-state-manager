@@ -2,12 +2,11 @@ import { Component, WritableSignal, inject } from '@angular/core';
 import {
   SignalStoreService,
   StateKeys,
+  User,
 } from '../services/signal-store.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UsersService } from '../services/users.service';
-import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +16,7 @@ import { User } from '../models/user.model';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  user: Observable<User>;
+  user: WritableSignal<User>;
   private signalStoreService = inject(SignalStoreService);
   private usersService = inject(UsersService);
 
