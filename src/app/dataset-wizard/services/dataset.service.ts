@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DatasetTabModel } from '../models/dataset-tab.model';
+import { DatasetTabModel, WizardDataset } from '../models/dataset-tab.model';
 import { BehaviorSubject } from 'rxjs';
 import { DatasetStatusEnum, DatasetStepEnum } from '../enums/dataset.enum';
 
@@ -7,7 +7,7 @@ import { DatasetStatusEnum, DatasetStepEnum } from '../enums/dataset.enum';
   providedIn: 'root',
 })
 export class DatasetService {
-  private wizardState = {
+  private wizardState: WizardDataset = {
     name: 'My New Dataset',
     schema: {
       domainName: 'Career Schema Standard',
@@ -17,7 +17,6 @@ export class DatasetService {
     },
     status: 'IN_DRAFT',
   };
-
   private initialDatasetTabs: DatasetTabModel[] = [
     {
       id: 1,
@@ -26,7 +25,7 @@ export class DatasetService {
         'Configure general info & choose Target Schema model to continue with mapping',
       status: DatasetStatusEnum.IN_PROGRESS,
       isActive: true,
-      step: DatasetStepEnum.DATA_SETTINGS
+      step: DatasetStepEnum.DATA_SETTINGS,
     },
     {
       id: 2,
@@ -35,7 +34,7 @@ export class DatasetService {
         'Upload compatible Sample data File and verify Auto-Schema mapping',
       status: DatasetStatusEnum.PENDING,
       isActive: false,
-      step: DatasetStepEnum.MAPPING_SETTINGS
+      step: DatasetStepEnum.MAPPING_SETTINGS,
     },
     {
       id: 3,
@@ -43,7 +42,7 @@ export class DatasetService {
       description: 'Lorem ipsum dolor sit amet, consectetur.',
       status: DatasetStatusEnum.PENDING,
       isActive: false,
-      step: DatasetStepEnum.DATA_VALIDATION
+      step: DatasetStepEnum.DATA_VALIDATION,
     },
     {
       id: 4,
@@ -51,13 +50,17 @@ export class DatasetService {
       description: 'Lorem ipsum dolor sit amet, consectetur.',
       status: DatasetStatusEnum.PENDING,
       isActive: false,
-      step: DatasetStepEnum.FINALIZE_SAVE
+      step: DatasetStepEnum.FINALIZE_SAVE,
     },
   ];
   private tabsSubject = new BehaviorSubject<DatasetTabModel[]>(
     this.initialDatasetTabs
   );
+  private wizardDatasetSubject = new BehaviorSubject<WizardDataset>(
+    this.wizardState
+  );
   tabs$ = this.tabsSubject.asObservable();
+  wizardDataset$ = this.wizardDatasetSubject.asObservable();
 
   constructor() {}
 
@@ -82,8 +85,9 @@ export class DatasetService {
     this.tabsSubject.next(updatedTabs);
   }
 
-  saveAsDraft(): void {
-    console.log('save as draft');
+  updateWizardState(wizardDataset: WizardDataset): void {
+    const wizardDatasetUpdate = { ...wizardDataset, status: DatasetStatusEnum.COMPLETED};
+    this.wizardDatasetSubject.next(wizardDatasetUpdate);
   }
 
   exit(): void {

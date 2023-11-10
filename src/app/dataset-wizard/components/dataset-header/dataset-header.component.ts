@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { WizardDataset } from '../../models/dataset-tab.model';
 
 @Component({
   selector: 'app-dataset-header',
@@ -6,12 +7,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./dataset-header.component.scss'],
 })
 export class DatasetHeaderComponent {
-  @Output() saveAsDraft = new EventEmitter<void>();
+  @Input() wizardDataset!: WizardDataset | null;
+  @Output() saveAsDraft = new EventEmitter<WizardDataset>();
   @Output() exit = new EventEmitter<void>();
 
 
   onSaveAsDraft() {
-    this.saveAsDraft.emit();
+    this.saveAsDraft.emit(this.wizardDataset!);
   }
 
   onExit() {

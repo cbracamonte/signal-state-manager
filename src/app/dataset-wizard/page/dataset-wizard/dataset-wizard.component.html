@@ -1,4 +1,4 @@
-<app-dataset-header></app-dataset-header>
+<app-dataset-header [wizardDataset]="wizardDataset$ | async" (saveAsDraft)="saveAsDraft($event)"></app-dataset-header>
 <section class="dataset-wizard-container">
   <div class="tabs">
     <app-dataset-tab

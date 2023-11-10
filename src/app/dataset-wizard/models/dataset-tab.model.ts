@@ -6,3 +6,14 @@ export interface DatasetTabModel {
   status: string;
   isActive: boolean;
 }
+
+export interface WizardDataset {
+  name: string;
+  schema: {
+    domainName: string;
+    sections: string[];
+    countries: string[];
+    industries: string[];
+  };
+  status: string;
+}
